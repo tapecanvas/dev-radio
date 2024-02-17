@@ -27,7 +27,7 @@
 
 local current_stream = nil
 FileSelect = require 'fileselect'
-local selected_file = "/home/we/dust/data/internet-radio/streams.lua"  
+local selected_file = "/home/we/dust/data/dev-radio/streams.lua"  
 local current_stream_index = 1
 local top_stream_index = 1
 local is_playing = false
@@ -96,14 +96,14 @@ end
 
 -- function to copy a file if it doesn't exist
 function copy_stream_defaults(src, dst)
---    if not file_exists(dst) then
+   -- if not file_exists(dst) then
         os.execute(string.format("cp -n %s %s", src, dst))
 --    end
 end
 
 -- define the source and destination directories
-local src_dir = "home/we/dust/code/internet-radio/lib/"
-local dst_dir = "home/we/dust/data/internet-radio/"
+local src_dir = "home/we/dust/code/dev-radio/lib/"
+local dst_dir = "home/we/dust/data/dev-radio/"
 
 -- define file names to check for
 local file_names = {"streams.lua", "template.lua", "bbc.lua"}
@@ -202,7 +202,7 @@ end
 
 -- Save the current state to a file (if exit_option is "open", this will retain which stream is being played when you re-open the script)
 function save_state()
-    local file, err = io.open("/home/we/dust/data/internet-radio/state.lua", "w")
+    local file, err = io.open("/home/we/dust/data/dev-radio/state.lua", "w")
     if not file then
         print("Failed to open file: " .. err)
         return
@@ -219,7 +219,7 @@ end
 -- Load the current state from a file
 function load_state()
     local file
-    local path = "/home/we/dust/data/internet-radio/state.lua"
+    local path = "/home/we/dust/data/dev-radio/state.lua"
     if not pcall(function() file = dofile(path) end) then
         -- If the file does not exist, create it with default values
         local default_file, err = io.open(path, "w")
@@ -231,7 +231,7 @@ function load_state()
         default_file:write("    current_stream_index = 1,\n")
         default_file:write("    playing_stream_index = nil,\n")
         default_file:write("    exit_option = 1,\n")
-        default_file:write("    selected_file = \"/home/we/dust/data/internet-radio/streams.lua\",\n")  -- updated
+        default_file:write("    selected_file = \"/home/we/dust/data/dev-radio/streams.lua\",\n")  -- updated
         default_file:write("}\n")
         default_file:close()
         file = dofile(path)
@@ -240,7 +240,7 @@ function load_state()
         current_stream_index = file.current_stream_index or 1
         playing_stream_index = file.playing_stream_index
         exit_option = file.exit_option == 1 and "close" or "leave open"
-        selected_file = file.selected_file or "/home/we/dust/data/internet-radio/streams.lua"  -- updated
+        selected_file = file.selected_file or "/home/we/dust/data/dev-radio/streams.lua"  -- updated
     end
 end
 
