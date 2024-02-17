@@ -1,5 +1,6 @@
 -- DO NOT TRY to hide a stream from your station list by removing it from this file. It will be deleted from the table
 return {
+    {name = "numbers station", address = "https://www.liveatc.net/play/numbers.pls", favorite = false},
     {name = "Birdsong.fm", address = "https://streaming-saltlakecity1.radio.co/s5c5da6a36/listen", favorite = false},
     {name = "HF CAR-B: 11.330", address = "https://www.liveatc.net/play/hf_nh_11330.pls", favorite = false},
     {name = "HF NAT-B 5616/8864 NH", address = "https://www.liveatc.net/play/hf_atlantic_b.pls", favorite = false},
