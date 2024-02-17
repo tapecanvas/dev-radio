@@ -2,6 +2,8 @@
 return {
     {name = "AAA NUMBERS STATION", address = "https://www.liveatc.net/play/numbers.pls", favorite = false},
     {name = "BB NUMBERS STATION", address = "https://www.liveatc.net/play/numbers.pls", favorite = false},
+    {name = "CHECK", address = "https://www.liveatc.net/play/numbers.pls", favorite = false},
+
     {name = "aa numbers station", address = "https://www.liveatc.net/play/numbers.pls", favorite = false},
     {name = "Birdsong.fm", address = "https://streaming-saltlakecity1.radio.co/s5c5da6a36/listen", favorite = false},
     {name = "HF CAR-B: 11.330", address = "https://www.liveatc.net/play/hf_nh_11330.pls", favorite = false},
