@@ -54,7 +54,7 @@ end
 -- load streams from streams.lua file
 function load_streams()
     streams = {} -- clear the streams array
-    os.execute("mkdir -p /home/we/dust/data/dev-radio/streams")
+    
     local file = dofile(selected_file)
     if file then
         streams = file
@@ -99,6 +99,7 @@ end
 -- (allows for default list updates from GH)
 -- but would also overwrite user changes in /data/dev-radio/any of the file names included in "file_names"
 function copy_stream_defaults(src, dst)
+ os.execute("mkdir -p /home/we/dust/data/dev-radio/streams/")
 os.execute(string.format("cp %s %s", src, dst))
 end
 
@@ -225,6 +226,7 @@ end
 -- Load the current state from a file
 function load_state()
     local file
+    
     local path = "/home/we/dust/data/dev-radio/state.lua"
     if not pcall(function() file = dofile(path) end) then
         -- If the file does not exist, create it with default values
@@ -318,8 +320,10 @@ end
 
 function init()
    -- copy_stream_defaults()
-    load_state()
-    load_streams()
+   load_state()
+   load_streams()
+   
+    
 
     -- select a stream list file
     params:add_separator("select stream list")
