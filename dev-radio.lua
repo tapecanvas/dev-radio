@@ -98,9 +98,12 @@ end
 -- (allows for default list updates from GH)
 -- but would also overwrite user changes in /data/script name/streams.lua
 function copy_stream_defaults(src, dst)
-  --  if not file_exists(dst) then
+  if not file_exists(dst) then
 os.execute(string.format("mv -n %s %s", src, dst))
---    end
+   end
+if file_exists(dst) then
+    os.execute(string.format("mv -n %s %s", src, dst))
+end
 end
 
 -- define the source and destination directories
