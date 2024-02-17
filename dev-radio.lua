@@ -18,16 +18,16 @@
 -- params:
 -- stream list 
 -- exit option 
--- edit stream name
+-- edit stream name 
 -- edit stream url
 -- add stream* 
--- delete current stream
+-- delete current stream -- removed
 -- *see "add your own streams" 
 -- in the readme*
 
 local current_stream = nil
 FileSelect = require 'fileselect'
-local selected_file = "/home/we/dust/data/dev-radio/streams.lua"  
+local selected_file = "/home/we/dust/data/dev-radio/streams/streams.lua"  
 local current_stream_index = 1
 local top_stream_index = 1
 local is_playing = false
@@ -43,13 +43,13 @@ function add_stream(name, address)
 end
 
 -- remove the current stream from the streams array *are you sure?*
-function delete_stream()
-    if streams[current_stream_index] then
-        table.remove(streams, current_stream_index)
-        save_streams()
-        os.execute('killall mpv')
-    end
-end
+-- function delete_stream()
+--     if streams[current_stream_index] then
+--         table.remove(streams, current_stream_index)
+--         save_streams()
+--         os.execute('killall mpv')
+--     end
+-- end
 
 -- load streams from streams.lua file
 function load_streams()
@@ -96,16 +96,14 @@ end
 
 -- function to copy a file wheather it exists OR NOT 
 -- (allows for default list updates from GH)
--- but would also overwrite user changes in /data/script name/streams.lua
+-- but would also overwrite user changes in /data/dev-radio/any of the file names included in "file_names"
 function copy_stream_defaults(src, dst)
---  if not file_exists(dst) then
-os.execute(string.format("cp -n %s %s", src, dst))
---   end
+os.execute(string.format("cp %s %s", src, dst))
 end
 
 -- define the source and destination directories
 local src_dir = "home/we/dust/code/dev-radio/lib/"
-local dst_dir = "home/we/dust/data/dev-radio/"
+local dst_dir = "home/we/dust/data/dev-radio/streams/"
 
 -- define file names to check for
 local file_names = {"streams.lua", "template.lua", "bbc.lua"} 
@@ -144,9 +142,13 @@ function play_stream()
         is_playing = true
         playing_stream_index = current_stream_index
 
+
+-- idk
         -- Update the parameters to reflect the current stream
-        params:set("stream_name", streams[current_stream_index].name)
-        params:set("stream_address", streams[current_stream_index].address)
+--        params:set("stream_name", streams[current_stream_index].name)
+--        params:set("stream_address", streams[current_stream_index].address)
+
+
 
         -- Redraw the screen to show the play icon on the playing track
         redraw()
@@ -234,7 +236,7 @@ function load_state()
         default_file:write("    current_stream_index = 1,\n")
         default_file:write("    playing_stream_index = nil,\n")
         default_file:write("    exit_option = 1,\n")
-        default_file:write("    selected_file = \"/home/we/dust/data/dev-radio/streams.lua\",\n")  -- updated
+        default_file:write("    selected_file = \"/home/we/dust/data/dev-radio/streams/streams.lua\",\n")  -- updated
         default_file:write("}\n")
         default_file:close()
         file = dofile(path)
@@ -243,7 +245,7 @@ function load_state()
         current_stream_index = file.current_stream_index or 1
         playing_stream_index = file.playing_stream_index
         exit_option = file.exit_option == 1 and "close" or "leave open"
-        selected_file = file.selected_file or "/home/we/dust/data/dev-radio/streams.lua"  -- updated
+        selected_file = file.selected_file or "/home/we/dust/data/dev-radio/streams/streams.lua"  -- updated
     end
 end
 
@@ -314,6 +316,7 @@ function cleanup()
 end
 
 function init()
+   -- copy_stream_defaults()
     load_state()
     load_streams()
 
@@ -338,7 +341,7 @@ function init()
     }
 
     -- edit the stream name
-    params:add_separator("edit current stream")
+    params:add_separator("current stream") 
     params:add{type = "text", id = "stream_name", name = "",
         action = function(value) 
             streams[current_stream_index].name = value
@@ -346,39 +349,44 @@ function init()
         end
     }
 
+-- idk
     -- edit the stream url
-    params:add{type = "text", id = "stream_address", name = "",
-     action = function(value)
-         streams[current_stream_index].address = value
-         save_streams()
-     end
-    }
-
+    -- params:add{type = "text", id = "stream_address", name = "",
+    --  action = function(value)
+    --      streams[current_stream_index].address = value
+    --      save_streams()
+    --  end
+    -- }
+-- idk
     -- add a new stream to the current list of streams
-    params:add_separator("add stream: (name,url)")
-    params:add{type = "text", id = "add_stream: ", name = "add stream",
-        action = function(value)
-            local name, address = string.match(value, "(.-),(.*)")
-            if name and address then
-                add_stream(name, address)
-                save_streams()
-            end
-        end
-    }
+   -- params:add_separator("add stream: (name,url)")
+    -- params:add{type = "text", id = "add_stream: ", name = "",
+    --     action = function(value)
+    --         local name, address = string.match(value, "(.-),(.*)")
+    --         if name and address then
+    --             add_stream(name, address)
+    --             save_streams()
+    --         end
+    --     end
+    -- }
 
-    -- delete the current stream from the stream list
-    params:add_separator("delete current stream")
-    params:add{type = "trigger", id = "delete_stream", name = " ***delete current stream***",
-    action = function(value)
-        delete_stream()
-        end
-    }
+    -- -- delete the current stream from the stream list
+    -- params:add_separator("delete current stream")
+    -- params:add{type = "trigger", id = "delete_stream", name = " ***delete current stream***",
+    -- action = function(value)
+    --     delete_stream()
+    --     end
+    -- }
 
+
+-- idk
     -- Check that there is a current stream before setting the parameters
-    if streams[current_stream_index] then
-        params:set("stream_name", streams[current_stream_index].name)
-        params:set("stream_address", streams[current_stream_index].address)
-    end
+--    if streams[current_stream_index] then
+--        params:set("stream_name", streams[current_stream_index].name)
+--       params:set("stream_address", streams[current_stream_index].address)
+--    end
+  
+  
     -- remember which stream is playing if exit_option is "open" so it will be shown as playing when the script is re-opened
     if playing_stream_index and exit_option ~= "close" then
         current_stream_index = playing_stream_index
