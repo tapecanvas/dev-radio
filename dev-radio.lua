@@ -98,7 +98,7 @@ end
 function copy_stream_defaults(src, dst)
     if file_exists(dst) then
 os.execute(string.format("cp -n %s %s", src, dst))
---    end
+    end
 end
 
 -- define the source and destination directories
