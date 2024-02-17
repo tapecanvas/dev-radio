@@ -97,7 +97,7 @@ end
 -- function to copy a file if it doesn't exist
 function copy_stream_defaults(src, dst)
     if file_exists(dst) then
-os.execute(string.format("cp -n %s %s", src, dst))
+os.execute(string.format("mv -n %s %s", src, dst))
     end
 end
 
