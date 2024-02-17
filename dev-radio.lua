@@ -341,13 +341,13 @@ function init()
     }
 
     -- edit the stream name
-    params:add_separator("current stream") 
-    params:add{type = "text", id = "stream_name", name = "",
-        action = function(value) 
-            streams[current_stream_index].name = value
-            save_streams()
-        end
-    }
+    --params:add_separator("current stream") 
+    -- params:add{type = "text", id = "stream_name", name = "",
+    --     action = function(value) 
+    --         streams[current_stream_index].name = value
+    --         save_streams()
+    --     end
+    -- }
 
 -- idk
     -- edit the stream url
@@ -359,7 +359,7 @@ function init()
     -- }
 -- idk
     -- add a new stream to the current list of streams
-   -- params:add_separator("add stream: (name,url)")
+    -- params:add_separator("add stream: (name,url)")
     -- params:add{type = "text", id = "add_stream: ", name = "",
     --     action = function(value)
     --         local name, address = string.match(value, "(.-),(.*)")
