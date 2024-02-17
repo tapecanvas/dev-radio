@@ -84,26 +84,23 @@ end
 -- inelegant but functional
 -- 
 -- function to check if a file exists 
- function file_exists(name)
-     local f = io.open(name, "r")
-     if f ~= nil then 
-         io.close(f) 
-         return true 
-     else 
-         return false 
-     end
- end
+--  function file_exists(name)
+--      local f = io.open(name, "r")
+--      if f ~= nil then 
+--          io.close(f) 
+--          return true 
+--      else 
+--          return false 
+--      end
+--  end
 
 -- function to copy a file wheather it exists OR NOT 
 -- (allows for default list updates from GH)
 -- but would also overwrite user changes in /data/script name/streams.lua
 function copy_stream_defaults(src, dst)
-  if not file_exists(dst) then
+--  if not file_exists(dst) then
 os.execute(string.format("cp -n %s %s", src, dst))
-   end
-if file_exists(dst) then
-    os.execute(string.format("cp -n %s %s", src, dst))
-end
+--   end
 end
 
 -- define the source and destination directories
