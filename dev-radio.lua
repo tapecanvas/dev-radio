@@ -94,7 +94,9 @@ end
      end
  end
 
--- function to copy a file if it doesn't exist
+-- function to copy a file wheather it exists OR NOT 
+-- (allows for default list updates from GH)
+-- but would also overwrite user changes in /data/script name/streams.lua
 function copy_stream_defaults(src, dst)
   --  if not file_exists(dst) then
 os.execute(string.format("mv -n %s %s", src, dst))
@@ -106,7 +108,8 @@ local src_dir = "home/we/dust/code/dev-radio/lib/"
 local dst_dir = "home/we/dust/data/dev-radio/"
 
 -- define file names to check for
-local file_names = {"streams.lua", "template.lua", "bbc.lua"}
+local file_names = {"streams.lua", "template.lua", "bbc.lua"} 
+-- any file in /data/./ named ^, ^, or ^ will be overwritten when script is updated (from gh? or on load? when really?)
 
 -- for each file, call the copy function to copy files from the src to the dst if they don't already exist there
 for _, file_name in ipairs(file_names) do
