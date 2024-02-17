@@ -54,6 +54,7 @@ end
 -- load streams from streams.lua file
 function load_streams()
     streams = {} -- clear the streams array
+    os.execute("mkdir -p /home/we/dust/data/dev-radio/streams")
     local file = dofile(selected_file)
     if file then
         streams = file
