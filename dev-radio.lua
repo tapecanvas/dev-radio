@@ -99,10 +99,10 @@ end
 -- but would also overwrite user changes in /data/script name/streams.lua
 function copy_stream_defaults(src, dst)
   if not file_exists(dst) then
-os.execute(string.format("mv -n %s %s", src, dst))
+os.execute(string.format("cp -n %s %s", src, dst))
    end
 if file_exists(dst) then
-    os.execute(string.format("mv -n %s %s", src, dst))
+    os.execute(string.format("cp -n %s %s", src, dst))
 end
 end
 
