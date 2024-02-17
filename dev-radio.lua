@@ -84,15 +84,15 @@ end
 -- inelegant but functional
 -- 
 -- function to check if a file exists 
-function file_exists(name)
-    local f = io.open(name, "r")
-    if f ~= nil then 
-        io.close(f) 
-        return true 
-    else 
-        return false 
-    end
-end
+-- function file_exists(name)
+--     local f = io.open(name, "r")
+--     if f ~= nil then 
+--         io.close(f) 
+--         return true 
+--     else 
+--         return false 
+--     end
+-- end
 
 -- function to copy a file if it doesn't exist
 function copy_stream_defaults(src, dst)
