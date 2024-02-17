@@ -1,5 +1,5 @@
 -- internet-radio
--- v0.1.9b (beta) @tapecanvas
+-- vUPDATE TEST(beta) @tapecanvas
 -- inspired by:
 -- @mlogger + @infinitedigits
 -- with help from:
@@ -18,6 +18,10 @@
 -- params:
 -- stream list 
 -- exit option 
+-- edit stream name 
+-- edit stream url
+-- add stream* 
+-- delete current stream -- removed
 -- *see "add your own streams" 
 -- in the readme*
 
@@ -50,6 +54,7 @@ end
 -- load streams from streams.lua file
 function load_streams()
     streams = {} -- clear the streams array
+    
     local file = dofile(selected_file)
     if file then
         streams = file
@@ -78,7 +83,17 @@ end
 -- this block moves the contents of /code/internet-radio/lib to /data/internet-radio/streams if the included files are not already there
 -- this allows the user to edit the streams.lua file without making changes to the /code/internet-radio directory - which currently prevents updating from maiden  
 -- inelegant but functional
-
+-- 
+-- function to check if a file exists 
+--  function file_exists(name)
+--      local f = io.open(name, "r")
+--      if f ~= nil then 
+--          io.close(f) 
+--          return true 
+--      else 
+--          return false 
+--      end
+--  end
 
 -- function to copy a file wheather it exists OR NOT 
 -- (allows for default list updates from GH)
@@ -304,6 +319,7 @@ function cleanup()
 end
 
 function init()
+   -- copy_stream_defaults()
    load_state()
    load_streams()
    
@@ -329,6 +345,52 @@ function init()
     end
     }
 
+    -- edit the stream name
+    --params:add_separator("current stream") 
+    -- params:add{type = "text", id = "stream_name", name = "",
+    --     action = function(value) 
+    --         streams[current_stream_index].name = value
+    --         save_streams()
+    --     end
+    -- }
+
+-- idk
+    -- edit the stream url
+    -- params:add{type = "text", id = "stream_address", name = "",
+    --  action = function(value)
+    --      streams[current_stream_index].address = value
+    --      save_streams()
+    --  end
+    -- }
+-- idk
+    -- add a new stream to the current list of streams
+    -- params:add_separator("add stream: (name,url)")
+    -- params:add{type = "text", id = "add_stream: ", name = "",
+    --     action = function(value)
+    --         local name, address = string.match(value, "(.-),(.*)")
+    --         if name and address then
+    --             add_stream(name, address)
+    --             save_streams()
+    --         end
+    --     end
+    -- }
+
+    -- -- delete the current stream from the stream list
+    -- params:add_separator("delete current stream")
+    -- params:add{type = "trigger", id = "delete_stream", name = " ***delete current stream***",
+    -- action = function(value)
+    --     delete_stream()
+    --     end
+    -- }
+
+
+-- idk
+    -- Check that there is a current stream before setting the parameters
+--    if streams[current_stream_index] then
+--        params:set("stream_name", streams[current_stream_index].name)
+--       params:set("stream_address", streams[current_stream_index].address)
+--    end
+  
   
     -- remember which stream is playing if exit_option is "open" so it will be shown as playing when the script is re-opened
     if playing_stream_index and exit_option ~= "close" then
